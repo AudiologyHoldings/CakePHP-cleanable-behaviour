@@ -2,8 +2,8 @@
 App::import('Core', array('AppModel', 'Model'));
 App::import('Lib', 'AppTestCase');
 class CleanableTestCase extends AppTestCase {
-	public $plugin = 'app';
-	public $fixtures = array('app.util');
+	public $plugin = 'cleanable';
+	public $fixtures = array('plugin.cleanable.util');
 	protected $_testsToRun = array();
 	/**
 	* Start Test callback
