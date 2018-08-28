@@ -1,6 +1,6 @@
 <?php
 App::import('Core', array('AppModel', 'Model'));
-App::import('Lib', 'Templates.AppTestCase');
+App::import('Lib', 'AppTestCase');
 class CleanableTestCase extends AppTestCase {
 	public $plugin = 'app';
 	public $fixtures = array('app.util');
