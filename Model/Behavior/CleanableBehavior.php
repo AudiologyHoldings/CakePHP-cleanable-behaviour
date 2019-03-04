@@ -271,6 +271,8 @@ class CleanableBehavior extends ModelBehavior{
 		if (array_key_exists($field, $config) && is_array($config[$field])) {
 			$options = array_merge($options, $config[$field]);
 		}
+		// Allow items in config to overwrite items in options.
+		$options = array_merge($options, array_intersect_key($config, $options));
 		return $options;
 	}
 	/**
