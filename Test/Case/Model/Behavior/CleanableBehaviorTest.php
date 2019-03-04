@@ -148,7 +148,6 @@ class CleanableTestCase extends AppTestCase {
 		$expected['nullIfEmpty'] = true;
 		$this->AssertEqual($response, $expected);
 		// Verify we can set specific settings on the model itself.
-		// $settings = $this->Util->Behaviors->Cleanable->config($this->Util);
 		$this->Util->cleanable = ['odd_spaces' => false];
 		$settings = $this->Util->Behaviors->Cleanable->config($this->Util);
 		$response = $this->Util->Behaviors->Cleanable->determineCleanOptions('created', $settings, $schema);
