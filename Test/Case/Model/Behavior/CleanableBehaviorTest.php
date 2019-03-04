@@ -74,6 +74,10 @@ class CleanableTestCase extends AppTestCase {
 	}
 	/**
 	* Cleanable doClean()
+	*
+	* @todo This test is completely broken. None of the assertions are getting results that match up with the expectations.
+	* 		It seems like this test needs rewritten to line up with whatever our current expectations are for this method.
+	*
 	*/
 	/*
 	public function testDoClean() {
