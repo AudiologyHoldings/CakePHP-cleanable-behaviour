@@ -79,6 +79,7 @@ class CleanableBehavior extends ModelBehavior{
 		'stripScripts' => true,
 		'stripIframes' => true,
 		'stripImages' => true,
+		'urlDecode' => true,
 		'stripHtml' => true,
 		// Sanitize::clean() options
 		'clean' => true, // do clean at all
@@ -314,7 +315,10 @@ class CleanableBehavior extends ModelBehavior{
 			return $value;
 		}
 		$value = str_replace('+', '[|#|#plus#|#|]', $value);
-		$value = trim(urldecode(trim($value)));
+		$value = trim($value);
+		if ($options['urlDecode']) {
+			$value = trim(urldecode($value));
+		}
 		$value = str_replace('[|#|#plus#|#|]', '+', $value);
 		if (!class_exists('Sanitize')) {
 			App::uses('Sanitize', 'Utility');
