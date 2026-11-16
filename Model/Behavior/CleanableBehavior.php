@@ -177,12 +177,12 @@ class CleanableBehavior extends ModelBehavior{
 		foreach ( $Model->hasAndBelongsToMany as $modelAlias => $habtmSettings ) {
 			if (array_key_exists($modelAlias, $data) && !array_key_exists($modelAlias, $data[$modelAlias])) {
 				if (isset($Model->$modelAlias->primaryKey)) {
-					$primaryKeys = set::extract($data[$modelAlias], "/{$Model->$modelAlias->primaryKey}");
+					$primaryKeys = Set::extract($data[$modelAlias], "/{$Model->$modelAlias->primaryKey}");
 				} else {
-					$primaryKeys = set::extract($data[$modelAlias], "/{$habtmSettings['associationForeignKey']}");
+					$primaryKeys = Set::extract($data[$modelAlias], "/{$habtmSettings['associationForeignKey']}");
 				}
 				if (empty($primaryKeys)) {
-					$primaryKeys = set::extract($data[$modelAlias], "/id");
+					$primaryKeys = Set::extract($data[$modelAlias], "/id");
 				}
 				$data[$modelAlias][$modelAlias] = $primaryKeys;
 			}
