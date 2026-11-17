@@ -79,6 +79,7 @@ class CleanableBehavior extends ModelBehavior{
 		'stripScripts' => true,
 		'stripIframes' => true,
 		'stripImages' => true,
+		'urlDecode' => true,
 		'stripHtml' => true,
 		// Sanitize::clean() options
 		'clean' => true, // do clean at all
@@ -177,12 +178,12 @@ class CleanableBehavior extends ModelBehavior{
 		foreach ( $Model->hasAndBelongsToMany as $modelAlias => $habtmSettings ) {
 			if (array_key_exists($modelAlias, $data) && !array_key_exists($modelAlias, $data[$modelAlias])) {
 				if (isset($Model->$modelAlias->primaryKey)) {
-					$primaryKeys = set::extract($data[$modelAlias], "/{$Model->$modelAlias->primaryKey}");
+					$primaryKeys = Set::extract($data[$modelAlias], "/{$Model->$modelAlias->primaryKey}");
 				} else {
-					$primaryKeys = set::extract($data[$modelAlias], "/{$habtmSettings['associationForeignKey']}");
+					$primaryKeys = Set::extract($data[$modelAlias], "/{$habtmSettings['associationForeignKey']}");
 				}
 				if (empty($primaryKeys)) {
-					$primaryKeys = set::extract($data[$modelAlias], "/id");
+					$primaryKeys = Set::extract($data[$modelAlias], "/id");
 				}
 				$data[$modelAlias][$modelAlias] = $primaryKeys;
 			}
@@ -271,6 +272,8 @@ class CleanableBehavior extends ModelBehavior{
 		if (array_key_exists($field, $config) && is_array($config[$field])) {
 			$options = array_merge($options, $config[$field]);
 		}
+		// Allow items in config to overwrite items in options.
+		$options = array_merge($options, array_intersect_key($config, $options));
 		return $options;
 	}
 	/**
@@ -314,7 +317,10 @@ class CleanableBehavior extends ModelBehavior{
 			return $value;
 		}
 		$value = str_replace('+', '[|#|#plus#|#|]', $value);
-		$value = trim(urldecode(trim($value)));
+		$value = trim($value);
+		if ($options['urlDecode']) {
+			$value = trim(urldecode($value));
+		}
 		$value = str_replace('[|#|#plus#|#|]', '+', $value);
 		if (!class_exists('Sanitize')) {
 			App::uses('Sanitize', 'Utility');

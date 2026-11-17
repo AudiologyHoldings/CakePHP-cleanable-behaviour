@@ -1,0 +1,8 @@
+{
+  "name": "audiologyholdings/cleanable",
+  "description": "Behaviour for standardizing and cleaning $this->data",
+  "type": "cakephp-plugin",
+  "require": {
+    "cakephp/cakephp": ">=2.5.5.4 <3.0.0"
+  }
+}
